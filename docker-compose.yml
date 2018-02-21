@@ -2,6 +2,14 @@ version: '3.1'
 
 services:
 
+  eclipse-mosquitto:
+    image: eclipse-mosquitto:1.4.12
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    networks:
+      - datanet
+
   message-queue:
     image: rmohr/activemq:5.14.3
     expose:
@@ -12,7 +20,7 @@ services:
       - datanet
 
   cockroach1:
-    image: cockroachdb/cockroach:v1.1.2
+    image: cockroachdb/cockroach:v1.1.5
     hostname: cockroach1
     command: start --insecure
     ports:
@@ -24,7 +32,7 @@ services:
       - datanet
 
   cockroach2:
-    image: cockroachdb/cockroach:v1.1.2
+    image: cockroachdb/cockroach:v1.1.5
     hostname: cockroach2
     command: start --insecure --join=cockroach1
     volumes:
@@ -37,7 +45,7 @@ services:
       - datanet
 
   cockroach3:
-    image: cockroachdb/cockroach:v1.1.2
+    image: cockroachdb/cockroach:v1.1.5
     hostname: cockroach3
     command: start --insecure --join=cockroach1
     volumes:
