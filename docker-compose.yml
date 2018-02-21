@@ -22,6 +22,14 @@ services:
     networks:
       - datanet
 
+  rabbit-mq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - datanet
+
   message-queue:
     image: rmohr/activemq:5.14.3
     expose:
