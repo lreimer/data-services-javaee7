@@ -8,8 +8,11 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -22,32 +25,57 @@ public class CacheResource {
     @Inject
     private CacheManager cacheManager;
 
+    @Context
+    private UriInfo uriInfo;
+
+    @GET
+    @Path("/{name}")
+    public Response getCacheByName(@PathParam("name") String name) {
+        Cache<Object, Object> cache = cacheManager.getCache(name);
+        if (cache == null) {
+            throw new NotFoundException("No cache with name " + name);
+        } else {
+            return Response.noContent().build();
+        }
+    }
+
+    @PUT
+    @Path("/{name}")
+    public Response createCacheByName(@PathParam("name") String name) {
+        Cache<Object, Object> cache = getOrCreateCache(name);
+        URI uri = uriInfo.getBaseUriBuilder()
+                .path(CacheResource.class)
+                .path(CacheResource.class, "createCacheByName")
+                .build(cache.getName());
+        return Response.created(uri).build();
+    }
+
     @GET
     @Path("/{name}/{key}")
-    public JsonObject getCache(@PathParam("name") String name, @PathParam("key") String key) {
-        Cache<String, String> cache = getOrCreateCache(name);
+    public JsonObject getCacheEntry(@PathParam("name") String name, @PathParam("key") String key) {
+        Cache<Object, Object> cache = getOrCreateCache(name);
 
-        String value = Optional.ofNullable(cache.get(key))
-                .orElseThrow(() -> new NotFoundException("Cache does not "));
+        Object value = Optional.ofNullable(cache.get(key))
+                .orElseThrow(() -> new NotFoundException("No cache entry for key " + key));
 
         return Json.createObjectBuilder()
                 .add("key", key)
-                .add("value", value).build();
+                .add("value", value.toString()).build();
     }
 
     @POST
     @Path("/{name}/{key}")
     @Consumes({MediaType.TEXT_PLAIN})
-    public Response postCache(@PathParam("name") String name, @PathParam("key") String key, String value) {
-        Cache<String, String> cache = getOrCreateCache(name);
+    public Response putCacheEntry(@PathParam("name") String name, @PathParam("key") String key, String value) {
+        Cache<Object, Object> cache = getOrCreateCache(name);
         cache.put(key, value);
         return Response.noContent().build();
     }
 
-    private Cache<String, String> getOrCreateCache(String name) {
-        Cache<String, String> cache = cacheManager.getCache(name, String.class, String.class);
+    private Cache<Object, Object> getOrCreateCache(String name) {
+        Cache<Object, Object> cache = cacheManager.getCache(name, Object.class, Object.class);
         if (cache == null) {
-            CompleteConfiguration<String, String> config = new MutableConfiguration<String, String>().setTypes(String.class, String.class);
+            CompleteConfiguration<Object, Object> config = new MutableConfiguration<Object, Object>().setTypes(Object.class, Object.class);
             cache = cacheManager.createCache(name, config);
         }
         return cache;

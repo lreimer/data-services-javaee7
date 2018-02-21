@@ -2,6 +2,18 @@ version: '3.1'
 
 services:
 
+  hazelcast-payara:
+    build: ./hazelcast
+    volumes:
+      - ./hazelcast/src/main/docker/hazelcast.xml:/opt/payara/config/hazelcast.xml
+    expose:
+      - "5701"        # the outbound Hazelcast port
+      - "54327"       # the multicast Hazelcast port
+    ports:
+      - "18080:8080"  # the HTTP endpoint
+    networks:
+      - datanet
+
   eclipse-mosquitto:
     image: eclipse-mosquitto:1.4.12
     ports:
