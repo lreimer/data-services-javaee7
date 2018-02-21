@@ -47,7 +47,11 @@ $ gcloud container clusters delete data-services
 
 # References
 
+- https://docs.payara.fish/documentation/payara-micro/payara-micro.html
 - http://blog.payara.fish/kubernetes-native-discovery-with-payara-micro
+- https://github.com/MeroRai/payara-hazelcast-kubernetes
+- https://github.com/hazelcast/hazelcast-kubernetes
+- https://hub.docker.com/r/hazelcast/hazelcast-kubernetes/
 
 # Maintainer
 
