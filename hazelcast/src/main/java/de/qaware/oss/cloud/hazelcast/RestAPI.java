@@ -1,4 +1,4 @@
-package de.qaware.qacampus.jvm;
+package de.qaware.oss.cloud.hazelcast;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
