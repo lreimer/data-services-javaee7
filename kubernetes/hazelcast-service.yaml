@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hazelcast
+  labels:
+    hazelcast: true
+spec:
+  type: NodePort
+  selector:
+    hazelcast: true
+  ports:
+  - protocol: TCP
+    port: 5701
+    name: hzport
