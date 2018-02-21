@@ -5,7 +5,7 @@ services:
   hazelcast-payara:
     build: ./hazelcast
     volumes:
-      - ./hazelcast/src/main/docker/hazelcast.xml:/opt/payara/config/hazelcast.xml
+      - ./hazelcast/src/main/docker/hazelcast_default.xml:/opt/payara/config/hazelcast.xml
     expose:
       - "5701"        # the outbound Hazelcast port
       - "54327"       # the multicast Hazelcast port
