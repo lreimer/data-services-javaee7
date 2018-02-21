@@ -1,0 +1,61 @@
+version: '3.1'
+
+services:
+
+  message-queue:
+    image: rmohr/activemq:5.14.3
+    expose:
+      - "61616"       # the JMS port
+    ports:
+      - "8161:8161"   # the admin web UI
+    networks:
+      - datanet
+
+  cockroach1:
+    image: cockroachdb/cockroach:v1.1.2
+    hostname: cockroach1
+    command: start --insecure
+    ports:
+      - "26257:26257"
+      - "8080:8080"
+    volumes:
+      - "${PWD}/cockroach/data/cockroach1:/cockroach/cockroach-data"
+    networks:
+      - datanet
+
+  cockroach2:
+    image: cockroachdb/cockroach:v1.1.2
+    hostname: cockroach2
+    command: start --insecure --join=cockroach1
+    volumes:
+      - "${PWD}/cockroach/data/cockroach2:/cockroach/cockroach-data"
+    depends_on:
+      - cockroach1
+    links:
+      - cockroach1
+    networks:
+      - datanet
+
+  cockroach3:
+    image: cockroachdb/cockroach:v1.1.2
+    hostname: cockroach3
+    command: start --insecure --join=cockroach1
+    volumes:
+      - "${PWD}/cockroach/data/cockroach3:/cockroach/cockroach-data"
+    depends_on:
+      - cockroach1
+    links:
+      - cockroach1
+    networks:
+      - datanet
+
+  database:
+    image: postgres:9.6.2
+    ports:
+      - "5432:5432"   # the Postgres port
+    networks:
+      - datanet
+
+networks:
+  datanet:
+    driver: bridge
