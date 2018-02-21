@@ -44,6 +44,18 @@ Once you are done, remember to delete the cluster again!
 $ gcloud container clusters delete data-services
 ```
 
+## Administration
+
+- **Rabbit MQ**
+  - URL: http://localhost:15672
+  - User: guest
+  - PWD: guest
+- **Active MQ**
+  - URL: http://localhost:8161
+  - User: Admin
+  - PWD: admin
+- **Cockroach DB**
+  - URL> http://localhost
 
 # References
 
