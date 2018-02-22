@@ -18,14 +18,14 @@ public class WeatherImportSchedule {
     private OpenWeatherMapClient weatherMapClient;
 
     @Inject
-    private WeatherTopic weatherTopic;
+    private WeatherDataQueue weatherDataQueue;
 
     @Schedule(minute = "*/1", hour = "*", persistent = false)
     public void currentWeather() {
         LOGGER.log(Level.INFO, "Getting current weather.");
         JsonObject weatherData = weatherMapClient.getWeatherData("London,uk");
 
-        LOGGER.log(Level.INFO, "Publish current weather {0}.", weatherData);
-        weatherTopic.publish(weatherData);
+        LOGGER.log(Level.INFO, "Send weather data {0}.", weatherData);
+        weatherDataQueue.send(weatherData);
     }
 }
