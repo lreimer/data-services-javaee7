@@ -11,7 +11,9 @@ import javax.ejb.Startup;
 import javax.json.Json;
 import javax.json.JsonWriter;
 import javax.resource.ConnectionFactoryDefinition;
+import javax.resource.spi.TransactionSupport;
 import java.io.ByteArrayOutputStream;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +22,7 @@ import java.util.logging.Logger;
         interfaceName = "fish.payara.cloud.connectors.mqtt.api.MQTTConnectionFactory",
         resourceAdapter = "mqtt-rar-0.1.0",
         minPoolSize = 2,
+        transactionSupport = TransactionSupport.TransactionSupportLevel.NoTransaction,
         maxPoolSize = 2,
         properties = {
                 "serverURIs=tcp://eclipse-mosquitto:1883",
@@ -34,11 +37,11 @@ public class MqttMessenger {
     @Resource(lookup = "java:app/mqtt/factory")
     MQTTConnectionFactory factory;
 
-    private int counter;
+    private Random random;
 
     @PostConstruct
     public void initialise() {
-        counter = 0;
+        random = new Random();
     }
 
     @Schedule(hour = "*", minute = "*", second = "*/5", persistent = false)
@@ -46,7 +49,11 @@ public class MqttMessenger {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         JsonWriter writer = Json.createWriter(outputStream);
-        writer.writeObject(Json.createObjectBuilder().add("counter", this.counter++).build());
+        writer.writeObject(Json.createObjectBuilder()
+                .add("vin", "vin-" + random.nextInt(42))
+                .add("latitude", random.nextDouble())
+                .add("longitude", random.nextDouble())
+                .build());
         writer.close();
 
         publish(outputStream.toByteArray());

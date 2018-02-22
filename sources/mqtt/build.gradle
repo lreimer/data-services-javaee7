@@ -18,8 +18,12 @@ configurations {
 dependencies {
     providedCompile 'javax:javaee-api:7.0'
 
-    compile 'fish.payara.cloud.connectors.mqtt:mqtt-jca-api:0.1.0'
+    providedCompile 'fish.payara.cloud.connectors.mqtt:mqtt-jca-api:0.1.0'
     mqtt 'fish.payara.cloud.connectors.mqtt:mqtt-rar:0.1.0@rar'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'javax.json:javax.json-api:1.0'
+    testRuntime 'org.glassfish:javax.json:1.0'
 }
 
 task copyMqttLibs(type: Copy) {
