@@ -18,6 +18,10 @@ services:
     build: ./sources/mqtt
     ports:
       - "18081:8080"  # the HTTP endpoint
+    depends_on:
+      - eclipse-mosquitto
+    links:
+      - eclipse-mosquitto
     networks:
       - datanet
 

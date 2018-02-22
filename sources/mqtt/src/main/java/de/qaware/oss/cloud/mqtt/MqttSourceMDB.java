@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "serverURIs", propertyValue = "tcp://test.mosquitto.org:1883"),
+        @ActivationConfigProperty(propertyName = "serverURIs", propertyValue = "tcp://eclipse-mosquitto:1883"),
         @ActivationConfigProperty(propertyName = "cleanSession", propertyValue = "false"),
         @ActivationConfigProperty(propertyName = "automaticReconnect", propertyValue = "true"),
         @ActivationConfigProperty(propertyName = "filePersistence", propertyValue = "false"),
@@ -22,12 +22,11 @@ import java.util.logging.Logger;
         @ActivationConfigProperty(propertyName = "maxInflight", propertyValue = "3"),
         @ActivationConfigProperty(propertyName = "keepAliveInterval", propertyValue = "5"),
         @ActivationConfigProperty(propertyName = "topicFilter", propertyValue = "de/qaware/oss/cloud/mqtt"),
-        @ActivationConfigProperty(propertyName = "qos", propertyValue = "1"),
-        @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "mqtt-rar-0.1.0")
+        @ActivationConfigProperty(propertyName = "qos", propertyValue = "1")
 })
 public class MqttSourceMDB implements MQTTListener {
 
-    private static final Logger LOGGER = Logger.getAnonymousLogger();
+    private static final Logger LOGGER = Logger.getLogger(MqttSourceMDB.class.getName());
 
     @OnMQTTMessage
     public void onMQTTMessage(String topic, MqttMessage message) {

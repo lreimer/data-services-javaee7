@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 import javax.json.Json;
 import javax.json.JsonWriter;
 import javax.resource.ConnectionFactoryDefinition;
@@ -23,7 +22,7 @@ import java.util.logging.Logger;
         minPoolSize = 2,
         maxPoolSize = 2,
         properties = {
-                "serverURIs=tcp://test.mosquitto.org:1883",
+                "serverURIs=tcp://eclipse-mosquitto:1883",
                 "cleanSession=true"
         })
 @Singleton
