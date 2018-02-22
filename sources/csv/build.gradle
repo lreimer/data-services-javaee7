@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+
+configurations {
+    activemq {
+        description = "Active MQ dependencies"
+        transitive = true
+    }
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:7.0'
+
+    activemq 'org.apache.activemq:activemq-rar:5.15.3@rar'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'javax.json:javax.json-api:1.0'
+    testRuntime 'org.glassfish:javax.json:1.0'
+}
+
+task copyActiveMqLibs(type: Copy) {
+    from configurations.activemq
+    into "$buildDir/activemq"
+}
+
+build.dependsOn copyActiveMqLibs

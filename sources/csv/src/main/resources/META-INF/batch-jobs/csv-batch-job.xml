@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<job id="csv-batch-job" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+    <properties>
+        <property name="input.file" value="/data/import.csv"/>
+    </properties>
+
+    <step id="info-step" next="import-step">
+        <batchlet ref="csvInfoBatchlet"/>
+    </step>
+
+    <step id="import-step">
+        <chunk item-count="5">
+            <reader ref="csvItemReader"/>
+            <processor ref="csvItemProcessor"/>
+            <writer ref="csvItemWriter"/>
+        </chunk>
+    </step>
+
+</job>

@@ -25,6 +25,19 @@ services:
     networks:
       - datanet
 
+  csv-importer:
+    build: ./sources/csv
+    volumes:
+      - ./sources/csv/import.csv:/data/import.csv
+    ports:
+      - "18082:8080"  # the HTTP endpoint
+    depends_on:
+      - message-queue
+    links:
+      - message-queue
+    networks:
+      - datanet
+
   eclipse-mosquitto:
     image: eclipse-mosquitto:1.4.12
     ports:
