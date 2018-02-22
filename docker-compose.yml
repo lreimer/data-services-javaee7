@@ -38,6 +38,17 @@ services:
     networks:
       - datanet
 
+  rest-source:
+    build: ./sources/rest
+    ports:
+      - "18083:8080"  # the HTTP endpoint
+    depends_on:
+      - message-queue
+    links:
+      - message-queue
+    networks:
+      - datanet
+
   eclipse-mosquitto:
     image: eclipse-mosquitto:1.4.12
     ports:
