@@ -32,7 +32,7 @@ public class MqttMessenger {
     private final Logger LOGGER = Logger.getLogger(getClass().getName());
 
     @Resource(lookup = "java:app/mqtt/factory")
-    private MQTTConnectionFactory factory;
+    MQTTConnectionFactory factory;
 
     private int counter;
 
