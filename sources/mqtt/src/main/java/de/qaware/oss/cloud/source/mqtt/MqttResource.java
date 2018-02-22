@@ -1,4 +1,4 @@
-package de.qaware.oss.cloud.mqtt;
+package de.qaware.oss.cloud.source.mqtt;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

@@ -1,4 +1,4 @@
-package de.qaware.oss.cloud.mqtt;
+package de.qaware.oss.cloud.source.mqtt;
 
 import fish.payara.cloud.connectors.mqtt.api.MQTTListener;
 import fish.payara.cloud.connectors.mqtt.api.OnMQTTMessage;

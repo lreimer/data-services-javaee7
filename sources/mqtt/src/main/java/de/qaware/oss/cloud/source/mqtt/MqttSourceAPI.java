@@ -1,4 +1,4 @@
-package de.qaware.oss.cloud.mqtt;
+package de.qaware.oss.cloud.source.mqtt;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

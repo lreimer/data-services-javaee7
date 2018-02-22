@@ -1,5 +1,6 @@
-package de.qaware.oss.cloud.mqtt;
+package de.qaware.oss.cloud.source.mqtt;
 
+import de.qaware.oss.cloud.source.mqtt.MqttSourceMDB;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.Test;
 
