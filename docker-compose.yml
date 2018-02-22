@@ -14,7 +14,7 @@ services:
     networks:
       - datanet
 
-  mqtt-importer:
+  mqtt-source:
     build: ./sources/mqtt
     ports:
       - "18081:8080"  # the HTTP endpoint
@@ -25,7 +25,7 @@ services:
     networks:
       - datanet
 
-  csv-importer:
+  csv-source:
     build: ./sources/csv
     volumes:
       - ./sources/csv/import.csv:/data/import.csv
