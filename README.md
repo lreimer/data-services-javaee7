@@ -55,7 +55,7 @@ $ gcloud container clusters delete data-services
   - User: Admin
   - PWD: admin
 - **Cockroach DB**
-  - URL> http://localhost
+  - URL: http://localhost
 
 # References
 
@@ -64,6 +64,7 @@ $ gcloud container clusters delete data-services
 - https://github.com/MeroRai/payara-hazelcast-kubernetes
 - https://github.com/hazelcast/hazelcast-kubernetes
 - https://hub.docker.com/r/hazelcast/hazelcast-kubernetes/
+- http://blog.payara.fish/payara-micro-jca-adapters-mqtt
 
 # Maintainer
 

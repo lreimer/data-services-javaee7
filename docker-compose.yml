@@ -14,6 +14,13 @@ services:
     networks:
       - datanet
 
+  mqtt-importer:
+    build: ./sources/mqtt
+    ports:
+      - "18081:8080"  # the HTTP endpoint
+    networks:
+      - datanet
+
   eclipse-mosquitto:
     image: eclipse-mosquitto:1.4.12
     ports:

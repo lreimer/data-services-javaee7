@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+configurations {
+    mqtt {
+        description = "MQTT dependencies"
+        transitive = true
+    }
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:7.0'
+    compile 'fish.payara.cloud.connectors.mqtt:mqtt-jca-api:0.1.0'
+
+    mqtt 'fish.payara.cloud.connectors.mqtt:mqtt-rar:0.1.0@rar'
+}
+
+task copyMqttLibs(type: Copy) {
+    from configurations.mqtt
+    into "$buildDir/mqtt"
+}
+
+build.dependsOn copyMqttLibs
