@@ -19,8 +19,9 @@ public class CsvItemWriter extends AbstractItemWriter {
 
     @Override
     public void writeItems(List<Object> items) throws Exception {
+        LOGGER.log(Level.INFO, "Writing {0} items to topic.", items.size());
         items.forEach(item -> {
-            LOGGER.log(Level.INFO, "Posting item {0}.", item);
+            LOGGER.log(Level.INFO, "Publish vehicle location {0}.", item);
             vehicleLocation.publish((JsonObject) item);
         });
     }

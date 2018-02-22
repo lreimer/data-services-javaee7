@@ -40,7 +40,7 @@ public class CsvItemReader extends AbstractItemReader {
     @Override
     public Object readItem() throws Exception {
         String item = br.readLine();
-        LOGGER.log(Level.INFO, "Read CSV line time {0}.", item);
+        LOGGER.log(Level.INFO, "Read CSV line {0}.", item);
         return item;
     }
 }
