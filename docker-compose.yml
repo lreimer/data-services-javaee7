@@ -51,12 +51,19 @@ services:
 
   weather-processor:
     build: ./processors/weather
+    volumes:
+      - ./processors/weather/src/main/docker/hazelcast_default.xml:/opt/payara/config/hazelcast.xml
+    expose:
+      - "5701"        # the outbound Hazelcast port
+      - "54327"       # the multicast Hazelcast port
     ports:
       - "18084:8080"  # the HTTP endpoint
     depends_on:
       - message-queue
+      - hazelcast-payara
     links:
       - message-queue
+      - hazelcast-payara
     networks:
       - datanet
 
