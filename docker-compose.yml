@@ -38,10 +38,21 @@ services:
     networks:
       - datanet
 
-  rest-source:
+  weather-source:
     build: ./sources/rest
     ports:
       - "18083:8080"  # the HTTP endpoint
+    depends_on:
+      - message-queue
+    links:
+      - message-queue
+    networks:
+      - datanet
+
+  weather-processor:
+    build: ./processors/weather
+    ports:
+      - "18084:8080"  # the HTTP endpoint
     depends_on:
       - message-queue
     links:

@@ -1,7 +1,8 @@
-package de.qaware.oss.cloud.source.rest;
+package de.qaware.oss.cloud.processor.weather;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.enterprise.event.Observes;
 import javax.jms.*;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -11,8 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-public class WeatherTopic {
-    private static final Logger LOGGER = Logger.getLogger(WeatherTopic.class.getName());
+public class CurrentWeatherTopic {
+    private static final Logger LOGGER = Logger.getLogger(CurrentWeatherTopic.class.getName());
 
     @Resource(lookup = "jms/activeMqConnectionFactory")
     private ConnectionFactory connectionFactory;
@@ -20,7 +21,11 @@ public class WeatherTopic {
     @Resource(lookup = "jms/CurrentWeather")
     private Topic topic;
 
-    public void publish(JsonObject weatherData) {
+    public void subscribe(@Observes CurrentWeatherEvent event) {
+        publish(event.toJson());
+    }
+
+    private void publish(JsonObject weatherData) {
         try (Connection connection = connectionFactory.createConnection()) {
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             MessageProducer producer = session.createProducer(topic);
