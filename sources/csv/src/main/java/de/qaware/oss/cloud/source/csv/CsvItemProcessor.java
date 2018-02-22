@@ -1,4 +1,4 @@
-package de.qaware.oss.cloud.batch.csv;
+package de.qaware.oss.cloud.source.csv;
 
 import javax.batch.api.chunk.ItemProcessor;
 import javax.enterprise.context.Dependent;
