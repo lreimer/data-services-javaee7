@@ -27,6 +27,7 @@ dependencies {
     activemq 'org.apache.activemq:activemq-rar:5.15.3@rar'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.2.6'
     testCompile 'javax.json:javax.json-api:1.0'
     testRuntime 'org.glassfish:javax.json:1.0'
 }

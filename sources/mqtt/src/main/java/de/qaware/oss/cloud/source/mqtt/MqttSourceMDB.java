@@ -8,6 +8,7 @@ import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -32,6 +33,9 @@ public class MqttSourceMDB implements MQTTListener {
 
     private static final Logger LOGGER = Logger.getLogger(MqttSourceMDB.class.getName());
 
+    @Inject
+    VehicleLocationTopic vehicleLocation;
+
     @OnMQTTMessage
     @TransactionAttribute(value = TransactionAttributeType.REQUIRED)
     @Transactional(Transactional.TxType.REQUIRED)
@@ -41,5 +45,6 @@ public class MqttSourceMDB implements MQTTListener {
         JsonObject jsonObject = reader.readObject();
 
         LOGGER.log(Level.INFO, "Received MQTT message {0} on topic {1}", new Object[]{jsonObject, topic});
+        vehicleLocation.publish(jsonObject);
     }
 }
