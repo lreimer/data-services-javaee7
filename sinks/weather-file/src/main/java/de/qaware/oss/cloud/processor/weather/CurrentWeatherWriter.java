@@ -10,18 +10,32 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 public class CurrentWeatherWriter {
 
+    private static final Logger LOGGER = Logger.getLogger(CurrentWeatherWriter.class.getName());
+
     private Path currentWeatherCsv;
 
     @PostConstruct
-    public void initialize() throws IOException {
+    public void initialize() {
         currentWeatherCsv = Paths.get("/tmp/current-weather.csv");
-        if (!Files.exists(currentWeatherCsv)) {
-            final String header = "local_date_time;city;weather";
+        createAndWriteCsvHeader();
+    }
+
+    private void createAndWriteCsvHeader() {
+        if (Files.exists(currentWeatherCsv)) {
+            return;
+        }
+
+        final String header = "local_date_time;city;weather";
+        try {
             currentWeatherCsv = Files.write(currentWeatherCsv, Collections.singleton(header), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            LOGGER.log(Level.WARNING, "Unable to create and write file.", e);
         }
     }
 
@@ -31,6 +45,7 @@ public class CurrentWeatherWriter {
         String line = String.format("%s;%s;%s", LocalDateTime.now(), city, weather);
         currentWeatherCsv = Files.write(currentWeatherCsv, Collections.singleton(line), StandardOpenOption.APPEND);
     }
+
     public Path getCurrentWeatherCsv() {
         return currentWeatherCsv;
     }

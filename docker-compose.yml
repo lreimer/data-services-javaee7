@@ -7,6 +7,8 @@ services:
     volumes:
       - ./hazelcast/src/main/docker/hazelcast_default.xml:/opt/payara/config/hazelcast.xml
     expose:
+      - "5900"
+      - "5901"
       - "5701"        # the outbound Hazelcast port
       - "54327"       # the multicast Hazelcast port
     ports:
@@ -54,6 +56,8 @@ services:
     volumes:
       - ./processors/weather/src/main/docker/hazelcast_default.xml:/opt/payara/config/hazelcast.xml
     expose:
+      - "5900"
+      - "5901"
       - "5701"        # the outbound Hazelcast port
       - "54327"       # the multicast Hazelcast port
     ports:
