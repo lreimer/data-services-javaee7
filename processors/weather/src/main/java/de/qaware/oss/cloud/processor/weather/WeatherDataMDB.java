@@ -17,7 +17,9 @@ import java.util.logging.Logger;
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/WeatherData"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "WEATHER.DATA"),
-        @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "activemq-rar")
+        @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "activemq-rar"),
+        @ActivationConfigProperty(propertyName = "messageSelector",
+                propertyValue = "(JMSType = 'WeatherData') AND (contentType = 'application/vnd.weather.v1+json')")
 })
 public class WeatherDataMDB implements MessageListener {
 

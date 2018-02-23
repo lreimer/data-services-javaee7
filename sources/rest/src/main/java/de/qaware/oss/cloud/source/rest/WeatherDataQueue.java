@@ -29,7 +29,11 @@ public class WeatherDataQueue {
             JsonWriter jsonWriter = Json.createWriter(payload);
             jsonWriter.writeObject(weatherData);
 
-            producer.send(session.createTextMessage(payload.toString()));
+            TextMessage textMessage = session.createTextMessage(payload.toString());
+            textMessage.setJMSType("WeatherData");
+            textMessage.setStringProperty("contentType", "application/vnd.weather.v1+json");
+
+            producer.send(textMessage);
         } catch (JMSException e) {
             LOGGER.log(Level.WARNING, "Could not send JMS message.", e);
         }
