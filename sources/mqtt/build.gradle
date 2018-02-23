@@ -13,6 +13,10 @@ configurations {
         description = "MQTT dependencies"
         transitive = true
     }
+    activemq {
+        description = "Active MQ dependencies"
+        transitive = true
+    }
 }
 
 dependencies {
@@ -20,6 +24,7 @@ dependencies {
 
     providedCompile 'fish.payara.cloud.connectors.mqtt:mqtt-jca-api:0.1.0'
     mqtt 'fish.payara.cloud.connectors.mqtt:mqtt-rar:0.1.0@rar'
+    activemq 'org.apache.activemq:activemq-rar:5.15.3@rar'
 
     testCompile 'junit:junit:4.12'
     testCompile 'javax.json:javax.json-api:1.0'
@@ -31,4 +36,9 @@ task copyMqttLibs(type: Copy) {
     into "$buildDir/mqtt"
 }
 
-build.dependsOn copyMqttLibs
+task copyActiveMqLibs(type: Copy) {
+    from configurations.activemq
+    into "$buildDir/activemq"
+}
+
+build.dependsOn copyMqttLibs, copyActiveMqLibs
