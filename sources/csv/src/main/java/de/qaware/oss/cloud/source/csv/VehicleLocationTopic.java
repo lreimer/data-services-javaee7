@@ -29,7 +29,11 @@ public class VehicleLocationTopic {
             JsonWriter jsonWriter = Json.createWriter(payload);
             jsonWriter.writeObject(vehicleLocation);
 
-            producer.send(session.createTextMessage(payload.toString()));
+            TextMessage textMessage = session.createTextMessage(payload.toString());
+            textMessage.setJMSType("VehicleLocation");
+            textMessage.setStringProperty("contentType", "application/vnd.location.v1+json");
+
+            producer.send(textMessage);
         } catch (JMSException e) {
             LOGGER.log(Level.WARNING, "Could not send JMS message.", e);
         }
