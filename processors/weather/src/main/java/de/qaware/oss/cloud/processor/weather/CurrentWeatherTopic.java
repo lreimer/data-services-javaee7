@@ -25,14 +25,14 @@ public class CurrentWeatherTopic {
         publish(event.toJson());
     }
 
-    private void publish(JsonObject weatherData) {
+    private void publish(JsonObject currentWeather) {
         try (Connection connection = connectionFactory.createConnection()) {
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             MessageProducer producer = session.createProducer(topic);
 
             StringWriter payload = new StringWriter();
             JsonWriter jsonWriter = Json.createWriter(payload);
-            jsonWriter.writeObject(weatherData);
+            jsonWriter.writeObject(currentWeather);
 
             TextMessage textMessage = session.createTextMessage(payload.toString());
             textMessage.setJMSType("CurrentWeather");
