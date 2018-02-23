@@ -14,7 +14,7 @@ public class CsvBatchImportSchedule {
 
     private static final Logger LOGGER = Logger.getLogger(CsvBatchImportSchedule.class.getName());
 
-    @Schedule(second = "*/55", minute = "*", hour = "*", persistent = false)
+    @Schedule(minute = "*/1", hour = "*", persistent = false)
     public void processFiles() {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         long executionId = jobOperator.start("csv-batch-job", null);
