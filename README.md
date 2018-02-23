@@ -52,10 +52,16 @@ $ gcloud container clusters delete data-services
   - PWD: guest
 - **Active MQ**
   - URL: http://localhost:8161
-  - User: Admin
+  - User: admin
   - PWD: admin
 - **Cockroach DB**
-  - URL: http://localhost
+  - URL: http://localhost:8080
+  - User: root
+  - PWD: root
+
+## REST endpoints
+
+To test the different REST endpoints use the Postman collection: `data-services.postman_collection.json`
 
 # References
 
