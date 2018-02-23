@@ -13,7 +13,7 @@ import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@MessageDriven(name = "CurrentWeatherMDB", activationConfig = {
+@MessageDriven(name = "WeatherDataMDB", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/WeatherData"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "WEATHER.DATA"),
