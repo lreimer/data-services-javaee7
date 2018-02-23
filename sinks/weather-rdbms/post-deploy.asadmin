@@ -5,4 +5,12 @@ create-connector-connection-pool --raname activemq-rar --connectiondefinition ja
 create-connector-resource --poolname jms/activeMqConnectionPool jms/activeMqConnectionFactory
 create-admin-object --raname activemq-rar --restype javax.jms.Topic --property PhysicalName=CURRENT.WEATHER jms/CurrentWeather
 
+create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGConnectionPoolDataSource --restype javax.sql.ConnectionPoolDataSource --property portNumber=26257:password='root':user='root':serverName=cockroach-db:databaseName='weather' PostgresPool
+create-jdbc-resource --connectionpoolid PostgresPool jdbc/WeatherDb
+
+set resources.jdbc-connection-pool.PostgresPool.connection-validation-method=custom-validation
+set resources.jdbc-connection-pool.PostgresPool.validation-classname=org.glassfish.api.jdbc.validation.PostgresConnectionValidation
+set resources.jdbc-connection-pool.PostgresPool.is-connection-validation-required=true
+set resources.jdbc-connection-pool.PostgresPool.fail-all-connections=true
+
 deploy --type war /opt/payara/deployments/weather-rdbms.war

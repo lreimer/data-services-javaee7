@@ -5,14 +5,5 @@
 
     <display-name>Current Weather RDBMS Sink</display-name>
 
-    <data-source>
-        <name>java:db/WeatherDb</name>
-        <class-name>org.postgresql.xa.PGXADataSource</class-name>
-        <server-name>cockroach-db</server-name>
-        <port-number>26257</port-number>
-        <database-name>weather</database-name>
-        <user>root</user>
-        <password>root</password>
-    </data-source>
 
 </web-app>

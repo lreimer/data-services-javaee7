@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
     <persistence-unit name="currentWeather" transaction-type="JTA">
-        <jta-data-source>db/WeatherDb</jta-data-source>
+        <jta-data-source>jdbc/WeatherDb</jta-data-source>
 
         <class>de.qaware.oss.cloud.processor.weather.CurrentWeather</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
@@ -12,7 +12,10 @@
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
-            <property name="javax.persistence.sql-load-script-source" value="META-INF/load.sql"/>
+            <property name="javax.persistence.schema-generation.create-source" value="script-then-metadata"/>
+            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/create.sql" />
+
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/weather.sql"/>
 
             <property name="eclipselink.logging.level" value="FINE"/>
             <property name="eclipselink.logging.parameters" value="true"/>

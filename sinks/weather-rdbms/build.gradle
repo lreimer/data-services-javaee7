@@ -12,12 +12,16 @@ configurations {
         description = "Active MQ dependencies"
         transitive = true
     }
+    postgresql {
+        description = "PostgreSQL dependencies"
+        transitive = true
+    }
 }
 
 dependencies {
     providedCompile 'javax:javaee-api:7.0'
-    runtime 'org.postgresql:postgresql:42.2.1'
 
+    postgresql 'org.postgresql:postgresql:42.2.1'
     activemq 'org.apache.activemq:activemq-rar:5.15.3@rar'
 }
 
@@ -26,4 +30,9 @@ task copyActiveMqLibs(type: Copy) {
     into "$buildDir/activemq"
 }
 
-build.dependsOn copyActiveMqLibs
+task copyPostgresqlLibs(type: Copy) {
+    from configurations.postgresql
+    into "$buildDir/postgresql"
+}
+
+build.dependsOn copyActiveMqLibs, copyPostgresqlLibs
