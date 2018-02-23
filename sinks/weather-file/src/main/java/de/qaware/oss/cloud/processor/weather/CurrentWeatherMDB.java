@@ -39,7 +39,7 @@ public class CurrentWeatherMDB implements MessageListener {
             try {
                 writer.write(reader.readObject());
             } catch (IOException e) {
-                LOGGER.log(Level.WARNING, "Unable to write current weather.", e);
+                LOGGER.log(Level.WARNING, "Unable to write current weather to file.", e);
             }
         }
     }
