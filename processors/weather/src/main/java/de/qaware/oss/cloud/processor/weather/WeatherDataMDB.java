@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 @MessageDriven(name = "WeatherDataMDB", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/WeatherData"),
+        @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto_acknowledge"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "WEATHER.DATA"),
         @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "activemq-rar"),

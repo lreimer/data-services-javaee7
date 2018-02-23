@@ -11,9 +11,10 @@ import javax.jms.TextMessage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@MessageDriven(name = "WeatherDataMDB", activationConfig = {
+@MessageDriven(name = "VehicleLocationMDB", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/VehicleLocation"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
+        @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto_acknowledge"),
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "VEHICLE.LOCATION"),
         @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "activemq-rar"),
         @ActivationConfigProperty(propertyName = "messageSelector",
