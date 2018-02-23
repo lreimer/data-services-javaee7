@@ -18,7 +18,7 @@ public class CurrentWeatherWriter {
 
     @PostConstruct
     public void initialize() throws IOException {
-        currentWeatherCsv = Paths.get("/data/current-weather.csv");
+        currentWeatherCsv = Paths.get("/tmp/current-weather.csv");
         if (!Files.exists(currentWeatherCsv)) {
             final String header = "local_date_time;city;weather";
             currentWeatherCsv = Files.write(currentWeatherCsv, Collections.singleton(header), StandardOpenOption.CREATE);
@@ -30,5 +30,8 @@ public class CurrentWeatherWriter {
         String weather = jsonObject.getString("weather");
         String line = String.format("%s;%s;%s", LocalDateTime.now(), city, weather);
         currentWeatherCsv = Files.write(currentWeatherCsv, Collections.singleton(line), StandardOpenOption.APPEND);
+    }
+    public Path getCurrentWeatherCsv() {
+        return currentWeatherCsv;
     }
 }
