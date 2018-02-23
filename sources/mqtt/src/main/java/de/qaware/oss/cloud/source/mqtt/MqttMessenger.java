@@ -44,7 +44,7 @@ public class MqttMessenger {
         random = new Random();
     }
 
-    @Schedule(hour = "*", minute = "*", second = "*/5", persistent = false)
+    @Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
     public void fireEvent() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
