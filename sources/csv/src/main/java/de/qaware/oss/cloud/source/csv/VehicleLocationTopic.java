@@ -7,6 +7,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
 import java.io.StringWriter;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ public class VehicleLocationTopic {
         try (Connection connection = connectionFactory.createConnection()) {
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             MessageProducer producer = session.createProducer(topic);
+            producer.setTimeToLive(TimeUnit.SECONDS.toMillis(30));
 
             StringWriter payload = new StringWriter();
             JsonWriter jsonWriter = Json.createWriter(payload);
