@@ -22,10 +22,14 @@ public class WeatherImportSchedule {
 
     @Schedule(minute = "*/1", hour = "*", persistent = false)
     public void currentWeather() {
-        LOGGER.log(Level.INFO, "Getting current weather.");
-        JsonObject weatherData = weatherMapClient.getWeatherData("London,uk");
+        try {
+            LOGGER.log(Level.INFO, "Getting current weather.");
+            JsonObject weatherData = weatherMapClient.getWeatherData("London,uk");
 
-        LOGGER.log(Level.INFO, "Send weather data {0}.", weatherData);
-        weatherDataQueue.send(weatherData);
+            LOGGER.log(Level.INFO, "Send weather data {0}.", weatherData);
+            weatherDataQueue.send(weatherData);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Error during scheduled execution.", e);
+        }
     }
 }

@@ -37,4 +37,8 @@ public class VehicleLocationCache {
         LOGGER.log(Level.INFO, "Current location for VIN {0} is {1}.", new Object[]{vin, location});
         return Json.createReader(new StringReader(location)).readArray();
     }
+
+    public void clear() {
+        vehicleLocationCache.clear();
+    }
 }

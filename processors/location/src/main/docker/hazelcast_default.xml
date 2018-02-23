@@ -37,6 +37,11 @@
         <async-backup-count>0</async-backup-count>
     </cache>
 
+    <cache name="weatherCache">
+        <backup-count>1</backup-count>
+        <async-backup-count>0</async-backup-count>
+    </cache>
+
     <cache name="vehicleLocation">
         <backup-count>1</backup-count>
         <async-backup-count>0</async-backup-count>

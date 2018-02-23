@@ -92,6 +92,19 @@ services:
     networks:
       - datanet
 
+  weather-rdbms:
+      build: ./sinks/weather-rdbms
+      ports:
+        - "18087:8080"  # the HTTP endpoint
+      depends_on:
+        - message-queue
+        - cockroach1
+      links:
+        - message-queue
+        - cockroach1
+      networks:
+        - datanet
+
   eclipse-mosquitto:
     image: eclipse-mosquitto:1.4.12
     ports:
@@ -127,7 +140,9 @@ services:
     volumes:
       - "${PWD}/cockroach/data/cockroach1:/cockroach/cockroach-data"
     networks:
-      - datanet
+      datanet:
+        aliases:
+         - cockroach-db
 
   cockroach2:
     image: cockroachdb/cockroach:v1.1.5
