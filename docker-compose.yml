@@ -4,6 +4,7 @@ services:
 
   hazelcast-payara:
     build: ./datagrid
+    image: lreimer/hazelcast-payara:1.0
     volumes:
       - ./datagrid/src/main/docker/hazelcast_default.xml:/opt/payara/config/hazelcast.xml
     expose:
@@ -16,6 +17,7 @@ services:
 
   mqtt-source:
     build: ./sources/mqtt
+    image: lreimer/mqtt-source:1.0
     ports:
       - "18081:8080"  # the HTTP endpoint
     depends_on:
@@ -27,6 +29,7 @@ services:
 
   csv-source:
     build: ./sources/csv
+    image: lreimer/csv-source:1.0
     volumes:
       - ./sources/csv/import.csv:/data/import.csv
     ports:
@@ -40,6 +43,7 @@ services:
 
   database-source:
     build: ./sources/database
+    image: lreimer/database-source:1.0
     ports:
       - "18088:8080"  # the HTTP endpoint
     depends_on:
@@ -53,6 +57,7 @@ services:
 
   weather-source:
     build: ./sources/rest
+    image: lreimer/weather-source:1.0
     ports:
       - "18083:8080"  # the HTTP endpoint
     depends_on:
@@ -64,6 +69,7 @@ services:
 
   weather-processor:
     build: ./processors/weather
+    image: lreimer/weather-processor:1.0
     volumes:
       - ./processors/weather/src/main/docker/hazelcast_default.xml:/opt/payara/config/hazelcast.xml
     expose:
@@ -80,6 +86,7 @@ services:
 
   location-processor:
     build: ./processors/location
+    image: lreimer/location-processor:1.0
     volumes:
       - ./processors/location/src/main/docker/hazelcast_default.xml:/opt/payara/config/hazelcast.xml
     expose:
@@ -96,6 +103,7 @@ services:
 
   weather-sink:
     build: ./sinks/weather-file
+    image: lreimer/weather-file:1.0
     ports:
       - "18085:8080"  # the HTTP endpoint
     depends_on:
@@ -107,6 +115,7 @@ services:
 
   weather-rdbms:
       build: ./sinks/weather-rdbms
+      image: lreimer/weather-rdbms:1.0
       ports:
         - "18087:8080"  # the HTTP endpoint
       depends_on:
