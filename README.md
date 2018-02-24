@@ -71,6 +71,8 @@ To test the different REST endpoints use the Postman collection: `data-services.
 - https://github.com/hazelcast/hazelcast-kubernetes
 - https://hub.docker.com/r/hazelcast/hazelcast-kubernetes/
 - http://blog.payara.fish/payara-micro-jca-adapters-mqtt
+- http://blog.payara.fish/payara-micro-jca-adapters-apache-kafka
+- http://blog.payara.fish/cloud-connectors-in-payara-micro
 
 # Maintainer
 
