@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+configurations {
+    kafka {
+        description = "Kafka dependencies"
+        transitive = true
+    }
+    activemq {
+        description = "Active MQ dependencies"
+        transitive = true
+    }
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:7.0'
+
+    providedCompile 'fish.payara.cloud.connectors.kafka:kafka-jca-api:0.1.0'
+    kafka 'fish.payara.cloud.connectors.kafka:kafka-rar:0.1.0@rar'
+    activemq 'org.apache.activemq:activemq-rar:5.15.3@rar'
+}
+
+task copyKafkaLibs(type: Copy) {
+    from configurations.kafka
+    into "$buildDir/kafka"
+}
+
+task copyActiveMqLibs(type: Copy) {
+    from configurations.activemq
+    into "$buildDir/activemq"
+}
+
+build.dependsOn copyKafkaLibs, copyActiveMqLibs
