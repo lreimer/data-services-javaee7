@@ -38,6 +38,19 @@ services:
     networks:
       - datanet
 
+  database-source:
+    build: ./sources/database
+    ports:
+      - "18088:8080"  # the HTTP endpoint
+    depends_on:
+      - message-queue
+      - database
+    links:
+      - message-queue
+      - database
+    networks:
+      - datanet
+
   weather-source:
     build: ./sources/rest
     ports:
@@ -171,11 +184,16 @@ services:
       - datanet
 
   database:
-    image: postgres:9.6.2
+    image: postgres:9.6.3
+    environment:
+    - POSTGRES_USER=importer
+    - POSTGRES_PASSWORD=qwerasdf
     ports:
       - "5432:5432"   # the Postgres port
     networks:
-      - datanet
+      datanet:
+        aliases:
+         - postgres-db
 
 networks:
   datanet:
