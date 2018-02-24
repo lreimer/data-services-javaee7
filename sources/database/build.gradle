@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+
+configurations {
+    activemq {
+        description = "Active MQ dependencies"
+        transitive = true
+    }
+    postgresql {
+        description = "PostgreSQL dependencies"
+        transitive = true
+    }
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:7.0'
+
+    activemq 'org.apache.activemq:activemq-rar:5.15.3@rar'
+    postgresql 'org.postgresql:postgresql:42.2.1'
+}
+
+task copyActiveMqLibs(type: Copy) {
+    from configurations.activemq
+    into "$buildDir/activemq"
+}
+
+task copyPostgresqlLibs(type: Copy) {
+    from configurations.postgresql
+    into "$buildDir/postgresql"
+}
+
+build.dependsOn copyActiveMqLibs, copyPostgresqlLibs
