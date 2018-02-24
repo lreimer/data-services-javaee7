@@ -44,10 +44,10 @@ services:
       - "18088:8080"  # the HTTP endpoint
     depends_on:
       - message-queue
-      - database
+      - cockroach1
     links:
       - message-queue
-      - database
+      - cockroach1
     networks:
       - datanet
 
@@ -156,6 +156,7 @@ services:
       datanet:
         aliases:
          - cockroach-db
+         - postgres-db
 
   cockroach2:
     image: cockroachdb/cockroach:v1.1.5
@@ -182,18 +183,6 @@ services:
       - cockroach1
     networks:
       - datanet
-
-  database:
-    image: postgres:9.6.3
-    environment:
-    - POSTGRES_USER=importer
-    - POSTGRES_PASSWORD=qwerasdf
-    ports:
-      - "5432:5432"   # the Postgres port
-    networks:
-      datanet:
-        aliases:
-         - postgres-db
 
 networks:
   datanet:

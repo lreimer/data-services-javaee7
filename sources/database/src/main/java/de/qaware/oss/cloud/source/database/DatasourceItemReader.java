@@ -43,7 +43,7 @@ public class DatasourceItemReader extends AbstractItemReader {
         connection.setAutoCommit(false);
 
         statement = connection.createStatement();
-        statement.setFetchSize(5);
+        // statement.setFetchSize(5);
 
         resultSet = statement.executeQuery(query);
     }
@@ -51,9 +51,15 @@ public class DatasourceItemReader extends AbstractItemReader {
     @Override
     public void close() throws Exception {
         LOGGER.log(Level.INFO, "Close datasource reader.");
-        resultSet.close();
-        statement.close();
-        connection.close();
+        if (resultSet != null) {
+            resultSet.close();
+        }
+        if (statement != null) {
+            statement.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
     }
 
     @Override
