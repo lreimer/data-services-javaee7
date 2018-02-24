@@ -18,6 +18,7 @@ public class DatasourceImportSchedule {
     public void processFiles() {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         long executionId = jobOperator.start("jdbc-batch-job", null);
-        LOGGER.log(Level.INFO, "Start JDBC datasource import job {0}.", executionId);
+
+        LOGGER.log(Level.INFO, "Started JDBC datasource import job {0}.", executionId);
     }
 }

@@ -1,15 +1,17 @@
 package de.qaware.oss.cloud.source.database;
 
+import javax.annotation.Resource;
+import javax.batch.api.BatchProperty;
 import javax.batch.api.chunk.AbstractItemReader;
 import javax.batch.runtime.context.JobContext;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.BufferedReader;
+import javax.sql.DataSource;
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,25 +24,46 @@ public class DatasourceItemReader extends AbstractItemReader {
     @Inject
     private JobContext jobContext;
 
-    private BufferedReader br;
+    @Inject
+    @BatchProperty
+    private String query;
+
+    @Resource(lookup = "jdbc/VehicleDb")
+    private DataSource vehicleDb;
+
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
 
     @Override
     public void open(Serializable checkpoint) throws Exception {
-        String inputFile = jobContext.getProperties().getProperty("input.file");
-        br = Files.newBufferedReader(Paths.get(inputFile), StandardCharsets.UTF_8);
+        LOGGER.log(Level.INFO, "Open datasource reader.");
+
+        connection = vehicleDb.getConnection();
+        connection.setAutoCommit(false);
+
+        statement = connection.createStatement();
+        statement.setFetchSize(5);
+
+        resultSet = statement.executeQuery(query);
     }
 
     @Override
     public void close() throws Exception {
-        LOGGER.log(Level.INFO, "Closing CSV reader.");
-        br.close();
-        br = null;
+        LOGGER.log(Level.INFO, "Close datasource reader.");
+        resultSet.close();
+        statement.close();
+        connection.close();
     }
 
     @Override
     public Object readItem() throws Exception {
-        String item = br.readLine();
-        LOGGER.log(Level.INFO, "Read CSV line {0}.", item);
-        return item;
+        LOGGER.log(Level.INFO, "Read datasource item.");
+        if (resultSet.next()) {
+            String vin = resultSet.getString("vin");
+            return new DatasourceVehicle(vin);
+        } else {
+            return null;
+        }
     }
 }

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <job id="jdbc-batch-job" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
-    <properties>
-        <property name="input.file" value="/data/import.csv"/>
-    </properties>
 
     <step id="import-step">
         <chunk item-count="5">
-            <reader ref="datasourceItemReader"/>
+            <reader ref="datasourceItemReader">
+                <properties>
+                    <property name="query" value="select * from vehicle"/>
+                </properties>
+            </reader>
             <processor ref="datasourceItemProcessor"/>
             <writer ref="vehicleLocationItemWriter"/>
         </chunk>
