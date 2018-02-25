@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: weather-processor
+    hazelcast: true
+  name: weather-processor
+spec:
+  replicas: 1
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        io.kompose.service: weather-processor
+        hazelcast: true
+    spec:
+      containers:
+      - image: lreimer/weather-processor:1.0
+        name: weather-processor
+        ports:
+        - containerPort: 8080
+        - containerPort: 5701
+        volumeMounts:
+        - mountPath: /opt/payara/config/
+          name: weather-processor-config-volume
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - name: weather-processor-config-volume
+        configMap:
+          name: weather-processor-config

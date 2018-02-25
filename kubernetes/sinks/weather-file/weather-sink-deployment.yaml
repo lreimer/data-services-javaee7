@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: weather-file
+  name: weather-file
+spec:
+  replicas: 1
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        io.kompose.service: weather-file
+    spec:
+      containers:
+      - image: lreimer/weather-file:1.0
+        name: weather-file
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always

@@ -11,4 +11,5 @@ spec:
   ports:
   - protocol: TCP
     port: 5701
-    name: hzport
+    targetPort: 5701
+    name: "hzport"

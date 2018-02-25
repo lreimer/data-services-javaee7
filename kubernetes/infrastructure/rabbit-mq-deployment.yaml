@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: rabbit-mq
+  name: rabbit-mq
+spec:
+  replicas: 1
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        io.kompose.service: rabbit-mq
+    spec:
+      containers:
+      - image: rabbitmq:3-management
+        name: rabbit-mq
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        resources: {}
+      restartPolicy: Always

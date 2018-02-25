@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: location-processor
+    hazelcast: true
+  name: location-processor
+spec:
+  replicas: 1
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        io.kompose.service: location-processor
+        hazelcast: true
+    spec:
+      containers:
+      - image: lreimer/location-processor:1.0
+        name: location-processor
+        ports:
+        - containerPort: 8080
+        - containerPort: 5701
+        volumeMounts:
+        - mountPath: /opt/payara/config/
+          name: location-processor-config-volume
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - name: location-processor-config-volume
+        configMap:
+          name: location-processor-config

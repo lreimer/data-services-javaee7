@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: database-source
+  name: database-source
+spec:
+  replicas: 1
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        io.kompose.service: database-source
+    spec:
+      containers:
+      - image: lreimer/database-source:1.0
+        name: database-source
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always

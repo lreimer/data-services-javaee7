@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: weather-source
+  name: weather-source
+spec:
+  replicas: 1
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        io.kompose.service: weather-source
+    spec:
+      containers:
+      - image: lreimer/weather-source:1.0
+        name: weather-source
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always

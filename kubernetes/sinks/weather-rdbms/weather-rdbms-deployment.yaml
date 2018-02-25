@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: weather-rdbms
+  name: weather-rdbms
+spec:
+  replicas: 1
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        io.kompose.service: weather-rdbms
+    spec:
+      containers:
+      - image: lreimer/weather-rdbms:1.0
+        name: weather-rdbms
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
