@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: hazelcast
   labels:
-    hazelcast: true
+    hazelcast: enabled
 spec:
-  type: NodePort
+  clusterIP: None
   selector:
-    hazelcast: true
+    hazelcast: enabled
   ports:
   - protocol: TCP
     port: 5701

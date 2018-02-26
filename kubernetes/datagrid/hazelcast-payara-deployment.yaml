@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: hazelcast-payara
-    hazelcast: true
+    hazelcast: enabled
   name: hazelcast-payara
 spec:
   replicas: 3
   strategy:
-    type: Rolling
+    type: RollingUpdate
   template:
     metadata:
       labels:
         io.kompose.service: hazelcast-payara
-        hazelcast: true
+        hazelcast: enabled
     spec:
       containers:
       - image: lreimer/hazelcast-payara:1.0

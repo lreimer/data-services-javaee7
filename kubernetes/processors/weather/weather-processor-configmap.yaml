@@ -29,9 +29,13 @@ data:
 
                         <properties>
                             <!-- configure discovery service API lookup -->
+                            <property name="service-dns">hazelcast</property>
+                            <property name="service-dns-timeout">10</property>
+                            <!--
                             <property name="service-name">hazelcast</property>
                             <property name="service-label-name">hazelcast</property>
-                            <property name="service-label-value">true</property>
+                            <property name="service-label-value">true</property>                            
+                            -->
                             <property name="namespace">default</property>
                         </properties>
                     </discovery-strategy>

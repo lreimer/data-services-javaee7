@@ -29,9 +29,9 @@ $ docker-compose up --build
 ```
 $ gcloud config list project
 $ gcloud config set compute/zone europe-west1-b
-$ gcloud config set container/use_client_certificate True
+$ gcloud config set container/use_client_certificate False
 
-$ gcloud container clusters create data-services --password=12qwaszx --num-nodes=5 --enable-autoscaling --min-nodes=5 --max-nodes=7 --addons=HttpLoadBalancing,HorizontalPodAutoscaling,KubernetesDashboard --scopes=gke-default,storage-rw
+$ gcloud container clusters create data-services --num-nodes=5 --enable-autoscaling --min-nodes=5 --max-nodes=7
 
 $ gcloud container clusters describe data-services
 
@@ -58,6 +58,20 @@ $ gcloud container clusters delete data-services
   - URL: http://localhost:8080
   - User: root
   - PWD: root
+
+## Cockroach DB Setup
+
+Follow the instructions here: https://www.cockroachlabs.com/docs/stable/orchestrate-cockroachdb-with-kubernetes-insecure.html
+
+Also, I have included the YAML files in `kubernetes/infrastructure/`. First apply the deployment.
+Once everything has started, run the init job and finally create the services.
+
+
+Test the cluster:
+
+```
+$ kubectl run cockroachdb -it --image=cockroachdb/cockroach --rm --restart=Never -- sql --insecure --host=cockroachdb-public
+```
 
 ## REST endpoints
 

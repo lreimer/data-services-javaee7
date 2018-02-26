@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: weather-processor
-    hazelcast: true
+    hazelcast: enabled
   name: weather-processor
 spec:
   replicas: 1
   strategy:
-    type: Rolling
+    type: RollingUpdate
   template:
     metadata:
       labels:
         io.kompose.service: weather-processor
-        hazelcast: true
+        hazelcast: enabled
     spec:
       containers:
       - image: lreimer/weather-processor:1.0

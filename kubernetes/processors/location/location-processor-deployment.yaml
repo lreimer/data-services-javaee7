@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: location-processor
-    hazelcast: true
+    hazelcast: enabled
   name: location-processor
 spec:
   replicas: 1
   strategy:
-    type: Rolling
+    type: RollingUpdate
   template:
     metadata:
       labels:
         io.kompose.service: location-processor
-        hazelcast: true
+        hazelcast: enabled
     spec:
       containers:
       - image: lreimer/location-processor:1.0
