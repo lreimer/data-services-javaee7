@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: weather-processor
+    LAUNCHPAD_ENABLE: "true"
+    LAUNCHPAD_COLOR: LIGHT_GREEN
+    LAUNCHPAD_ROW: "4"
     hazelcast: enabled
   name: weather-processor
 spec:

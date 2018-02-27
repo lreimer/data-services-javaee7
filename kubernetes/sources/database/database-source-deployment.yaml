@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: database-source
+    LAUNCHPAD_ENABLE: "true"
+    LAUNCHPAD_COLOR: ORANGE
+    LAUNCHPAD_ROW: "1"
   name: database-source
 spec:
   replicas: 1

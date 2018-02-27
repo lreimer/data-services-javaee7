@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: csv-source
+    LAUNCHPAD_ENABLE: "true"
+    LAUNCHPAD_COLOR: RED
+    LAUNCHPAD_ROW: "0"
   name: csv-source
 spec:
   replicas: 1

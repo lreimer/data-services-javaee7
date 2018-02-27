@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: mqtt-source
+    LAUNCHPAD_ENABLE: "true"
+    LAUNCHPAD_COLOR: YELLOW
+    LAUNCHPAD_ROW: "2"
   name: mqtt-source
 spec:
   replicas: 1

@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: weather-source
+    LAUNCHPAD_ENABLE: "true"
+    LAUNCHPAD_COLOR: PURPLE
+    LAUNCHPAD_ROW: "3"
   name: weather-source
 spec:
   replicas: 1

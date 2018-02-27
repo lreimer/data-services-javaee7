@@ -4,6 +4,9 @@ metadata:
   labels:
     io.kompose.service: location-processor
     hazelcast: enabled
+    LAUNCHPAD_ENABLE: "true"
+    LAUNCHPAD_COLOR: BLUE
+    LAUNCHPAD_ROW: "7"
   name: location-processor
 spec:
   replicas: 1
