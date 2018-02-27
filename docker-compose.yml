@@ -27,6 +27,18 @@ services:
     networks:
       - datanet
 
+  rabbitmq-source:
+    build: ./sources/rabbitmq
+    image: lreimer/rabbitmq-source:1.0
+    ports:
+      - "18089:8080"  # the HTTP endpoint
+    depends_on:
+      - rabbit-mq
+    links:
+      - rabbit-mq
+    networks:
+      - datanet
+
   csv-source:
     build: ./sources/csv
     image: lreimer/csv-source:1.0
