@@ -3,6 +3,8 @@
 This repository contains the showcase for my talk at O'Reilly Architecture Conference NY 2018.
 For details see: https://conferences.oreilly.com/software-architecture/sa-ny/public/schedule/detail/63967
 
+The slides for this talk can be found on SpeakerDeck here: https://speakerdeck.com/lreimer/data-services-processing-big-data-the-microservice-way
+
 # Usage
 
 ## Building the Data Services
@@ -79,6 +81,7 @@ To test the different REST endpoints use the Postman collection: `data-services.
 
 # References
 
+- https://speakerdeck.com/lreimer/data-services-processing-big-data-the-microservice-way
 - https://docs.payara.fish/documentation/payara-micro/payara-micro.html
 - http://blog.payara.fish/kubernetes-native-discovery-with-payara-micro
 - https://github.com/MeroRai/payara-hazelcast-kubernetes
