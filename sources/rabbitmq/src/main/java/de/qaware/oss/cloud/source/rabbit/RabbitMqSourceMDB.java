@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "serverURIs", propertyValue = "tcp://rabbit-mq:5672"),
+        @ActivationConfigProperty(propertyName = "serverURIs", propertyValue = "tcp://rabbit-mq:1883"),
         @ActivationConfigProperty(propertyName = "cleanSession", propertyValue = "false"),
         @ActivationConfigProperty(propertyName = "automaticReconnect", propertyValue = "true"),
         @ActivationConfigProperty(propertyName = "filePersistence", propertyValue = "false"),

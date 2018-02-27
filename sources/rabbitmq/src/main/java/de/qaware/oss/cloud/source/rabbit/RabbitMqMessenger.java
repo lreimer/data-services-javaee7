@@ -25,7 +25,7 @@ import java.util.logging.Logger;
         transactionSupport = TransactionSupport.TransactionSupportLevel.NoTransaction,
         maxPoolSize = 2,
         properties = {
-                "serverURIs=tcp://rabbit-mq:5672",
+                "serverURIs=tcp://rabbit-mq:1883",
                 "cleanSession=true"
         })
 @Singleton
