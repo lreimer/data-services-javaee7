@@ -27,17 +27,20 @@ services:
     networks:
       - datanet
 
-  rabbitmq-source:
-    build: ./sources/rabbitmq
-    image: lreimer/rabbitmq-source:1.0
-    ports:
-      - "18089:8080"  # the HTTP endpoint
-    depends_on:
-      - rabbit-mq
-    links:
-      - rabbit-mq
-    networks:
-      - datanet
+  # Requires MQTT plugin to be enabled for Rabbit MQ
+  # http://www.rabbitmq.com/mqtt.html
+  #
+  # rabbitmq-source:
+  #   build: ./sources/rabbitmq
+  #   image: lreimer/rabbitmq-source:1.0
+  #   ports:
+  #     - "18089:8080"  # the HTTP endpoint
+  #   depends_on:
+  #     - rabbit-mq
+  #   links:
+  #     - rabbit-mq
+  #   networks:
+  #     - datanet
 
   csv-source:
     build: ./sources/csv
@@ -149,9 +152,11 @@ services:
 
   rabbit-mq:
     image: rabbitmq:3-management
+    expose:
+      - "1883"
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "5672:5672"       # AMQP Port
+      - "15672:15672"     # HTTP Admin port
     networks:
       - datanet
 
