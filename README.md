@@ -1,9 +1,11 @@
-# Data services: Processing big data the microservice way with Java EE 7
+# Data services:<br>Processing big data the microservice way with Java EE 7
 
 This repository contains the showcase for my talk at O'Reilly Architecture Conference NY 2018.
 For details see: https://conferences.oreilly.com/software-architecture/sa-ny/public/schedule/detail/63967
 
 The slides for this talk can be found on SpeakerDeck here: https://speakerdeck.com/lreimer/data-services-processing-big-data-the-microservice-way
+
+![](architecture.png)
 
 # Usage
 
