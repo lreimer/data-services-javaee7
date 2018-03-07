@@ -70,6 +70,18 @@ services:
     networks:
       - datanet
 
+  # kafka-source:
+  #   build: ./sources/kafka
+  #   image: lreimer/kafka-source:1.0
+  #   ports:
+  #     - "18090:8080"  # the HTTP endpoint
+  #   depends_on:
+  #     - kafka
+  #   links:
+  #     - kafka
+  #   networks:
+  #     - datanet
+
   weather-source:
     build: ./sources/rest
     image: lreimer/weather-source:1.0
@@ -94,8 +106,10 @@ services:
       - "18084:8080"  # the HTTP endpoint
     depends_on:
       - message-queue
+      - hazelcast-payara
     links:
       - message-queue
+      - hazelcast-payara
     networks:
       - datanet
 
@@ -111,8 +125,10 @@ services:
       - "18086:8080"  # the HTTP endpoint
     depends_on:
       - message-queue
+      - hazelcast-payara
     links:
       - message-queue
+      - hazelcast-payara
     networks:
       - datanet
 
@@ -150,15 +166,15 @@ services:
     networks:
       - datanet
 
-  rabbit-mq:
-    image: rabbitmq:3-management
-    expose:
-      - "1883"
-    ports:
-      - "5672:5672"       # AMQP Port
-      - "15672:15672"     # HTTP Admin port
-    networks:
-      - datanet
+  # rabbit-mq:
+  #   image: rabbitmq:3-management
+  #   expose:
+  #     - "1883"
+  #   ports:
+  #     - "5672:5672"       # AMQP Port
+  #     - "15672:15672"     # HTTP Admin port
+  #   networks:
+  #     - datanet
 
   message-queue:
     image: rmohr/activemq:5.14.3
@@ -210,25 +226,23 @@ services:
     networks:
       - datanet
 
-  zookeeper:
-    container_name: zookeeper
-    image: wurstmeister/zookeeper
-    ports:
-      - "2181:2181"
-    networks:
-      - datanet
+  # zookeeper:
+  #   image: wurstmeister/zookeeper
+  #   ports:
+  #     - "2181:2181"
+  #   networks:
+  #     - datanet
 
-  kafka:
-    container_name: kafka
-    image: wurstmeister/kafka
-    ports:
-      - "9092"
-    depends_on:
-      - "zookeeper"
-    environment:
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    networks:
-      - datanet
+  # kafka:
+  #   image: wurstmeister/kafka
+  #   ports:
+  #     - "9092"
+  #   depends_on:
+  #     - zookeeper
+  #   environment:
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #   networks:
+  #     - datanet
 
 networks:
   datanet:
