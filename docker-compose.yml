@@ -84,7 +84,7 @@ services:
 
   weather-source:
     build: ./sources/rest
-    image: lreimer/weather-source:1.0
+    image: lreimer/weather-source:1.1
     ports:
       - "18083:8080"  # the HTTP endpoint
     depends_on:
