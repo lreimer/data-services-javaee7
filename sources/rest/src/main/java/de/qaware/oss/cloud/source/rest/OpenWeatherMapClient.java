@@ -22,7 +22,7 @@ public class OpenWeatherMapClient {
     public JsonObject getWeatherData(String city) {
         return webTarget
                 .queryParam("q", city)
-                .queryParam("appid", "b6907d289e10d714a6e88b30761fae22")
+                .queryParam("APPID", "5b3f51e527ba4ee2ba87940ce9705cb5")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get(JsonObject.class);
     }

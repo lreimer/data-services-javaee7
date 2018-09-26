@@ -27,7 +27,7 @@ public class OpenWeatherMapProducer {
     @Named("weather")
     @ApplicationScoped
     public WebTarget weatherWebTarget(Client client) {
-        return client.target("http://samples.openweathermap.org").path("/data/2.5/weather");
+        return client.target("https://api.openweathermap.org").path("/data/2.5/weather");
     }
 
     public void close(@Disposes Client client) {
